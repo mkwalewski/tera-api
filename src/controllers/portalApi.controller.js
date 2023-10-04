@@ -5,7 +5,8 @@
  * @typedef {import("express").RequestHandler} RequestHandler
  */
 
-const {resultJson} = require("../middlewares/admin.middlewares");
+const {resultJson} = require("../middlewares/portalApi.middlewares");
+const {requireReload} = require("../utils/helpers");
 
 /**
  * @param {modules} modules
@@ -16,12 +17,13 @@ module.exports.infoStats = ({ logger, serverModel }) => [
 	 */
 	async (req, res) => {
 		try {
-			const serversItems = [];
-			serverModel.info.findOne({ where: { serverId: 2800 } }).then(server => {
+			const config = requireReload("../../config/server");
+			serverModel.info.findOne({ where: { serverId: config.serverId } }).then(server => {
 				if (server === null) {
 					return resultJson(res, 50000, "server not exist");
 				}
-				serversItems.push({
+				resultJson(res, 0, {
+					msg: "success",
 					isAvailable: server.get("isAvailable"),
 					nameString: server.get("nameString"),
 					usersTotal: server.get("usersTotal"),
@@ -30,10 +32,6 @@ module.exports.infoStats = ({ logger, serverModel }) => [
 			}).catch(err => {
 				logger.error(err);
 				resultJson(res, 1, { msg: "internal error" });
-			});
-			resultJson(res, 0, {
-				msg: "success",
-				servers: serversItems
 			});
 		} catch (err) {
 			logger.error(err);
