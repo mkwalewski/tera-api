@@ -83,7 +83,7 @@
 	"Description must be between 1 and 2048 characters.": "Description must be between 1 and 2048 characters.",
 	"Description field must be between 1 and 2048 characters.": "Description field must be between 1 and 2048 characters.",
 	"Promo code ID field must contain a valid number.": "Promo code ID field must contain a valid number.",
-	"Promo code field must be between 6 and 16 characters.": "Promo code field must be between 6 and 16 characters.",
+	"Promo code field must be between 4 and 16 characters.": "Promo code field must be between 4 and 16 characters.",
 	"Balance field must contain a valid number.": "Balance field must contain a valid number.",
 	"Account ID field contains not existing account ID.": "Account ID field contains not existing account ID.",
 	"Shop account with specified account ID already exists.": "Shop account with specified account ID already exists.",
