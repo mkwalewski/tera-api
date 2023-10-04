@@ -8,6 +8,7 @@
 * @param {modules} modules
 */
 module.exports = modules => {
+	modules.app.use("/api", require("./portal/api.routes")(modules));
 	modules.app.use("/tera", require("./portal/tera.routes")(modules));
 	modules.app.use("/tera", require("./portal/launcher.routes")(modules));
 	modules.app.use("/tera", require("./portal/shop.routes")(modules));

@@ -45,41 +45,6 @@ module.exports.notifications = ({ logger, queue }) => [
 /**
  * @param {modules} modules
  */
-module.exports.infoStats = ({ logger, serverModel }) => [
-	/**
-	 * @type {RequestHandler}
-	 */
-	async (req, res) => {
-		try {
-			const serversItems = [];
-			serverModel.info.findOne({ where: { serverId: 2800 } }).then(server => {
-				if (server === null) {
-					return resultJson(res, 50000, "server not exist");
-				}
-				serversItems.push({
-					isAvailable: server.get("isAvailable"),
-					nameString: server.get("nameString"),
-					usersTotal: server.get("usersTotal"),
-					usersOnline: server.get("usersOnline"),
-				});
-			}).catch(err => {
-				logger.error(err);
-				resultJson(res, 1, { msg: "internal error" });
-			});
-			resultJson(res, 0, {
-				msg: "success",
-				servers: serversItems
-			});
-		} catch (err) {
-			logger.error(err);
-			resultJson(res, 1, { msg: "internal error" });
-		}
-	}
-];
-
-/**
- * @param {modules} modules
- */
 module.exports.homeStats = ({ i18n, logger, datasheetModel, dataModel, serverModel, accountModel, reportModel }) => [
 	apiAccessHandler,
 	/**

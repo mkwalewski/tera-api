@@ -5,11 +5,11 @@
 */
 
 const express = require("express");
-const adminApiController = require("../../controllers/adminApi.controller");
+const portalApiController = require("../../controllers/portalApi.controller");
 
 /**
 * @param {modules} modules
 */
 module.exports = modules => express.Router()
-	.get("/info", adminApiController.infoStats(modules))
+	.get("/info", portalApiController.infoStats(modules))
 ;
