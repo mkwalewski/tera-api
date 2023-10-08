@@ -22,14 +22,20 @@ module.exports.infoStats = ({ logger, serverModel, accountModel }) => [
 				if (server === null) {
 					return resultJson(res, 50000, "server not exist");
 				}
-				accountModel.info.count({ where: { serverId: config.serverId } }).then(accounts => {
-					resultJson(res, 0, {
-						msg: "success",
-						isAvailable: server.get("isAvailable"),
-						nameString: server.get("nameString"),
-						accountsTotal: Number(accounts),
-						charactersTotal: server.get("usersTotal"),
-						usersOnline: server.get("usersOnline"),
+				accountModel.info.count().then(accounts => {
+					accountModel.characters.count({ where: { serverId: config.serverId } }).then(characters => {
+						resultJson(res, 0, {
+							msg: "success",
+							isAvailable: server.get("isAvailable"),
+							nameString: server.get("nameString"),
+							accountsTotal: Number(accounts),
+							charactersTotal: Number(characters),
+							usersTotal: server.get("usersTotal"),
+							usersOnline: server.get("usersOnline"),
+						});
+					}).catch(err => {
+						logger.error(err);
+						resultJson(res, 1, { msg: "internal error" });
 					});
 				}).catch(err => {
 					logger.error(err);
