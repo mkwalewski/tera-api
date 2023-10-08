@@ -11,7 +11,7 @@ const {requireReload} = require("../utils/helpers");
 /**
  * @param {modules} modules
  */
-module.exports.infoStats = ({ logger, serverModel }) => [
+module.exports.infoStats = ({ logger, serverModel, accountModel }) => [
 	/**
 	 * @type {RequestHandler}
 	 */
@@ -22,12 +22,18 @@ module.exports.infoStats = ({ logger, serverModel }) => [
 				if (server === null) {
 					return resultJson(res, 50000, "server not exist");
 				}
-				resultJson(res, 0, {
-					msg: "success",
-					isAvailable: server.get("isAvailable"),
-					nameString: server.get("nameString"),
-					usersTotal: server.get("usersTotal"),
-					usersOnline: server.get("usersOnline"),
+				accountModel.info.count({ where: { serverId: config.serverId } }).then(accounts => {
+					resultJson(res, 0, {
+						msg: "success",
+						isAvailable: server.get("isAvailable"),
+						nameString: server.get("nameString"),
+						accountsTotal: Number(accounts),
+						charactersTotal: server.get("usersTotal"),
+						usersOnline: server.get("usersOnline"),
+					});
+				}).catch(err => {
+					logger.error(err);
+					resultJson(res, 1, { msg: "internal error" });
 				});
 			}).catch(err => {
 				logger.error(err);
