@@ -305,6 +305,16 @@ const SupplyBox = [
         }]
     }
 ];
+// Tikat
+const TikatBox = function (amount) {
+    return [ItemClaim, {
+        makeBox: [{
+            ...boxContext, items: [
+                {item_template_id: 246359, item_count: amount}, // 1,000 Tikat
+            ]
+        }]
+    }];
+};
 
 // List of Promo code functions, linked with certain promo code.
 // The functions specified here are automatically displayed in the Admin Panel.
@@ -499,9 +509,29 @@ module.exports = {
         SupplyBox
     ],
 
+    // TIKAT
+    tikat_5k: [
+        TikatBox(5)
+    ],
+    tikat_10k: [
+        TikatBox(10)
+    ],
+    tikat_15k: [
+        TikatBox(15)
+    ],
+    tikat_25k: [
+        TikatBox(25)
+    ],
+    tikat_50k: [
+        TikatBox(50)
+    ],
+
     // FREE-COINS
     fund_100_coins: [
         [Shop, {fund: [100]}]
+    ],
+    fund_250_coins: [
+        [Shop, {fund: [250]}]
     ],
     fund_500_coins: [
         [Shop, {fund: [500]}]
@@ -509,8 +539,17 @@ module.exports = {
     fund_1000_coins: [
         [Shop, {fund: [1000]}]
     ],
+    fund_2500_coins: [
+        [Shop, {fund: [2500]}]
+    ],
     fund_5000_coins: [
         [Shop, {fund: [5000]}]
+    ],
+    fund_10000_coins: [
+        [Shop, {fund: [10000]}]
+    ],
+    fund_15000_coins: [
+        [Shop, {fund: [15000]}]
     ],
 
     // FREE-VIP
